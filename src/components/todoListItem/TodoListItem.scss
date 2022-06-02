@@ -1,21 +1,16 @@
-form{
+.todo__list__item{
+    width: 100%;
     display: flex;
     align-items: center;
-    background-color: white;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 24px;
-    box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.5);
-    [type='text']{
-        padding: 20px 20px 20px 0;
-        border: 0;
-        outline: 0;
-        font-family: 'Josefin Sans';
-        font-weight: 400;
-        font-size: 1.125rem;
-        letter-spacing: -0.25px;
-        color: #9495A5;
-        flex-grow: 1;
+    justify-content: space-between;
+    padding: 20px 24px;
+    transition: 0.5s;
+    cursor: pointer;
+    &:not(:last-child){
+        border-bottom: 1px solid #E3E4F1;
+    }
+    &:first-of-type{
+        border-radius: 5px 5px 0 0;
     }
     .checkbox-label{
         display: flex;
@@ -24,7 +19,7 @@ form{
         width: 25px;
         height: 25px;
         padding: 1px;
-        margin: 0 24px;
+        margin: 0 24px 0 0;
         background-color: #D1D2DA;
         border-radius: 100%;
         cursor: pointer;
@@ -56,6 +51,31 @@ form{
                     display: flex;
                 }
             }
-        }  
+        }
+        &:checked ~ span{
+            color: #D1D2DA;
+            text-decoration: line-through;
+        }
+        
+    }
+    span{
+        flex-grow: 1;
+        font-weight: 400;
+        font-size: 1.125rem;
+        letter-spacing: -0.25px;
+        color: #494C6B;
+        &:hover + .cross{
+            display: block;
+        }
+    }
+
+    .cross{
+        display: none;
+    }
+
+    &:hover{
+        span + .cross{
+            display: block;
+        }
     }
 }

@@ -1,20 +1,132 @@
+import { Component } from 'react';
+import TodoHeader from '../TodoHeader/TodoHeader';
+import AddTaskInput from '../addTaskInput/AddTaskInput';
+import TodoList from '../todoList/TodoList';
+import TodoFilter from '../todoFilter/TodoFilter';
+import Empty from '../empty/Empty';
+
 import './App.scss';
 
-function App() {
-  
+export default class App extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      todoData: [],
+      maxId: 0,
+      filter: 'All',
+      darkMode: false
+    }
+  }
 
-  return (
-    <div className="todo">
-      <header className="todo-header">
-        <div className="todo-header_logo">
-          todo
-        </div>
-        <div className="todo-header_icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"><path fill="#FFF" fill-rule="evenodd" d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z"/></svg>
-        </div>
-      </header>
-    </div>
-  );
+  componentDidMount(){
+    this.setState(() => ({
+      todoData: JSON.parse(localStorage.getItem('todoList')) || [],
+      maxId: JSON.parse(localStorage.getItem('maxId')) || 0
+    }))
+  }
+
+  componentDidUpdate(){
+    localStorage.setItem('todoList', JSON.stringify(this.state.todoData));
+    localStorage.setItem('maxId', JSON.stringify(this.state.maxId));
+  }
+
+  onChangeThemeMod = () => {
+    this.setState(({darkMode}) => ({
+      darkMode: !darkMode
+    }))
+  }
+
+  onChangeComplete = (id) => {
+    this.setState(({todoData}) => ({
+        todoData: todoData.map(todoItem => {
+          if(todoItem.id === id){
+            return{ ...todoItem, complete: !todoItem.complete}
+          }
+          return todoItem;
+        })
+    }))
+  }
+
+  onCleanCompleteTasks = () => {
+    this.setState(({todoData}) => ({
+      todoData: todoData.filter(task => !task.complete)
+    }))
+  }
+
+  deleteTask = (id) => {
+    this.setState(({todoData}) => ({
+      todoData: todoData.filter(task => task.id !== id)
+    }))
+  }
+
+  addTask = (complete, taskName) => {
+    this.setState({maxId: this.state.maxId + 1})
+    const newTask = {
+      taskName,
+      complete,
+      id: this.state.maxId
+    };
+
+    this.setState(({todoData}) => ({
+      todoData: [...todoData, newTask]
+    }))
+  }
+
+  filterTodoList = (items, filter) => {
+    switch(filter){
+      case 'Active':
+          return items.filter(item => !item.complete);
+      case 'Completed':
+          return items.filter(item => item.complete);
+      default:
+          return items;
+    }
+  }
+
+  onFilterSelect = (filter) => {
+    this.setState({filter});
+  }
+
+
+  render(){
+    const {todoData, filter, darkMode} = this.state;
+    const completeTasksCount = todoData.filter(task => !task.complete).length;
+    const filterTodaData = this.filterTodoList(todoData, filter);
+    const darkModeClass = darkMode ? 'todo dark' : 'todo';
+
+    return (
+      <div className={darkModeClass}>
+        <TodoHeader onChangeThemeMod={this.onChangeThemeMod}
+          darkMode={darkMode}/>
+        <main className='container'>
+        <AddTaskInput
+        addTask={this.addTask}/>
+        <section className="todo__list__container">
+          <section className='todo__list'>
+            {(filterTodaData.length === 0) ? 
+            <Empty/> : <TodoList 
+            todoData={filterTodaData} 
+            onChangeComplete={this.onChangeComplete}
+            deleteTask={this.deleteTask}
+            />}
+          </section>
+          <section className="todo__panel">
+            <div className="todo__counter">
+              {completeTasksCount} items left
+            </div>
+            <TodoFilter 
+            onFilterSelect={this.onFilterSelect}
+            filter={filter}/>
+            <div 
+            className="todo__clear"
+            onClick={this.onCleanCompleteTasks}>
+              Clear Completed
+            </div>
+          </section>
+        </section>
+        </main>
+      </div>
+    );
+  }
 }
 
-export default App;

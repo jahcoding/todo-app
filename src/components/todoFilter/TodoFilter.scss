@@ -1,0 +1,21 @@
+.todo__filter{
+    display: flex;
+    list-style: none;
+    &__item{
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: -0.194444px;
+        color: #9495A5;
+        cursor: pointer;
+        &:not(:last-child){
+            margin-right: 18px;
+        }
+        &:hover{
+            color: #494C6B;
+        }
+
+        &_active{
+            color: #3A7CFD;
+        }
+    }
+}

@@ -5,10 +5,20 @@ body {
   font-family: 'Josefin Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url(images/bg-desktop-light.jpg);
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  
+}
+
+.container{
+  max-width: 540px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: 0.3s;
 }
 
 code {
