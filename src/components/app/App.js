@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import TodoHeader from '../TodoHeader/TodoHeader';
+import TodoHeader from '../todoHeader/TodoHeader';
 import AddTaskInput from '../addTaskInput/AddTaskInput';
 import TodoList from '../todoList/TodoList';
 import TodoFilter from '../todoFilter/TodoFilter';
