@@ -1,27 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
 
 body {
-  margin: 0;
-  font-family: 'Josefin Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  
+	margin: 0;
+	font-family: 'Josefin Sans', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-.container{
-  max-width: 540px;
-  margin-right: auto;
-  margin-left: auto;
+.container {
+	max-width: 540px;
+	margin-right: auto;
+	margin-left: auto;
 }
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  transition: 0.3s;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	transition: 0.3s;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
 }

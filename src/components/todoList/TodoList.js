@@ -19,9 +19,9 @@ export default class TodoList extends Component{
                 id={id} 
                 taskName={taskName} 
                 complete={complete}
+                draggable={true}
                 onChangeComplete={() => onChangeComplete(id)}
-                deleteTask={() => deleteTask(id)}
-                />
+                deleteTask={() => deleteTask(id)}/>
             )
         }).reverse()
         return(
